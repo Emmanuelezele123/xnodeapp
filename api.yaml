@@ -655,7 +655,26 @@ paths:
      
      
 
-
+ /profile/{username}:
+  get:
+   summary: user profile
+   tags:
+    - Seperate profile
+   description: get user profile
+   
+   parameters:
+     - name: username
+       in: path
+       required: true
+       schema:
+        type: string
+   responses: 
+    200:
+     description: Success
+    401:
+     description:  Error for not getting profile
+    500:
+     description:  Internal server error
 
 
 

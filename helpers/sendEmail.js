@@ -19,6 +19,7 @@ OAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 
 const sendEmail = async (email, subject, text) => {
+    console.log("go")
     const accessToken = await OAuth2Client.getAccessToken();
     try {
         const transporter = nodemailer.createTransport({
@@ -44,7 +45,6 @@ const sendEmail = async (email, subject, text) => {
 
         
     } catch (error) {
-        
     }
 };
 

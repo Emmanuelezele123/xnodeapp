@@ -25,10 +25,16 @@ app.use("/profile",ProfileRouter)
 app.use("/Qrcode",QRRouter)
 app.use("/wallet",WalletRouter)
 
-app.use("profiles/:username",async(req,res) => {
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDoc))
+// Root route of express app
+app.get("/", (req, res) => {
+  res.send("<a href='/api-docs'>View Documentation</a>");
+});     
+app.get("/profile/:username",async(req,res) => {
   const {username} = req.params
   
   try{
+
     const user = await User.findOne({ username: username}).sort('createdAt')
     res.status(200).json({ status:"Success", message:user })
 }catch(err){
@@ -39,14 +45,4 @@ app.use("profiles/:username",async(req,res) => {
 }
 
 })
-app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDoc))
-// Root route of express app
-app.get("/", (req, res) => {
-  res.send("<a href='/api-docs'>View Documentation</a>");
-});
-app.get("*", (req, res) => {
-
- res.send("PAGE NOT FOUND");
- 
-});
 connectDB(app)
